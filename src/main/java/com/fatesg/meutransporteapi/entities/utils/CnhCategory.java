@@ -1,4 +1,4 @@
-package com.fatesg.meutransporteapi.utils;
+package com.fatesg.meutransporteapi.entities.utils;
 
 public enum CnhCategory {
 
