@@ -4,16 +4,16 @@ import java.util.List;
 
 public interface GenericOperations<E> {
 	
-	E save(E entity);
-	E findById(Long id);
-	void update(E entity);
-	void delete(E entity);
-	void patch(E entity);
+	E save(E entity) throws Exception;
+	E findById(Long id) throws Exception;
+	void update(E entity) throws Exception;
+	void delete(E entity) throws Exception;
+	void patch(E entity) throws Exception;
 
-	List<E> save(List<E> entities);
-	List<E> findAll();
-	void update(List<E> entities);
-	void delete(List<E> entities);
-	void patch(List<E> entities);
+	List<E> save(List<E> entities) throws Exception;
+	List<E> findAll() throws Exception;
+	void update(List<E> entities) throws Exception;
+	void delete(List<E> entities) throws Exception;
+	void patch(List<E> entities) throws Exception;
 
 }
