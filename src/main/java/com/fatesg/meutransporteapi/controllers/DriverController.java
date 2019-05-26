@@ -13,16 +13,16 @@ import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 
 import javax.validation.Valid;
 import java.util.List;
 
-import static org.springframework.hateoas.jaxrs.JaxRsLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 @RestController
-@RequestMapping("/motoristas")
+@RequestMapping("/drivers")
 public class DriverController implements GenericOperationsController<Driver> {
 
     @Autowired private DriverService service;
@@ -41,49 +41,93 @@ public class DriverController implements GenericOperationsController<Driver> {
             service.save(entity);
             logger.info("Registro inserido");
 
-            Link link = linkTo(DriverController.class).slash(entity.getIdPeople()).withSelfRel();
+            Link link = linkTo(DriverController.class).slash(entity.getIdDriver()).withSelfRel();
             return new Resource<>(entity, link);
         } catch (Exception e) {
             logger.error(String.format("Erro ao executar o método POST.\nMensagem: %s", e.getMessage()));
+            return null;
         }
-        return null;
     }
 
     @Override
+    @PutMapping(consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void put(Driver entity) {
-
+        try {
+            service.save(entity);
+            logger.info(String.format("Registro atualizado: %s", entity.toString()));
+        } catch (Exception e) {
+            logger.error(String.format("Erro ao executar o método PUT.\nMensagem: %s", e.getMessage()));
+        }
     }
 
     @Override
+    @DeleteMapping(consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(Driver entity) {
-
+        try {
+            service.delete(entity);
+            logger.info(String.format("Registro(s) deletado(s): %s",entity.toString()));
+        } catch (Exception e) {
+            logger.error(String.format("Erro ao executar o método DELETE.\nMensagem: %s", e.getMessage()));
+        }
     }
 
     @Override
+    @GetMapping(produces = { MediaType.APPLICATION_JSON_VALUE,
+            MediaType.APPLICATION_XML_VALUE,
+            MediaTypes.HAL_JSON_VALUE})
+    @ResponseStatus(HttpStatus.OK)
     public Resources<Driver> get() {
-        return null;
+        try {
+            List<Driver> entities = service.findAll();
+
+            logger.info(String.format("Registro(s) recuperados(s): %s", entities.toString()));
+
+            for (final Driver entity : entities) {
+                Link selfLink = linkTo(DriverController.class)
+                        .slash(entity.getIdDriver())
+                        .withSelfRel();
+                entity.add(selfLink);
+            }
+            Link link = linkTo(DriverController.class).withSelfRel();
+            Resources<Driver> resources = new Resources<>(entities, link);
+            return resources;
+        } catch (Exception e) {
+            logger.error(String.format("Erro ao executar o método GET.\nMensagem: %s", e.getMessage()));
+            return null;
+        }
+
     }
 
     @Override
-    public Resource<Driver> get(Long id) {
-        return null;
+    @GetMapping(value = "/{id}", produces = { MediaType.APPLICATION_JSON_VALUE,
+            MediaType.APPLICATION_XML_VALUE,
+            MediaTypes.HAL_JSON_VALUE})
+    @ResponseStatus(HttpStatus.OK)
+    public Resource<Driver> get(@PathVariable Long id) {
+        try {
+            Driver entity = service.findById(id);
+            logger.info(String.format("Registro recuperado: %s", entity.toString()));
+
+            Link link = linkTo(DriverController.class).slash(entity.getIdDriver()).withSelfRel();
+            return new Resource<>(entity, link);
+        } catch (Exception e) {
+            logger.error(String.format("Erro ao executar o método GET.\nMensagem: %s", e.getMessage()));
+            return null;
+        }
     }
 
     @Override
+    @PutMapping(consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void patch(Driver entity) {
-
-    }
-
-    @PostMapping
-    public ResponseEntity<Driver> save(@RequestBody Driver driver){
-        Driver driverSaved = service.save(driver);
-        return ResponseEntity.status(HttpStatus.CREATED).body(driverSaved);
-    }
-
-    @GetMapping
-    public ResponseEntity<List<Driver>> findAll() {
-        List<Driver> drivers = service.findAll();
-        return ResponseEntity.ok(drivers);
+        try {
+            service.save(entity);
+            logger.info(String.format("Registro atualizado: %s", entity.toString()));
+        } catch (Exception e) {
+            logger.error(String.format("Erro ao executar o método PATCH.\nMensagem: %s", e.getMessage()));
+        }
     }
 
 }
