@@ -25,7 +25,6 @@ public class TruckController implements GenericOperationsController<Truck> {
 
     Logger logger = LoggerFactory.getLogger(TruckController.class);
 
-    @Override
     @PostMapping(consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE },
             produces = {MediaType.APPLICATION_JSON_VALUE,
                     MediaType.APPLICATION_XML_VALUE,
@@ -84,7 +83,7 @@ public class TruckController implements GenericOperationsController<Truck> {
 
             for (final Truck entity : entities) {
                 Link selfLink = linkTo(DriverController.class)
-                        .slash(entity.getIdDriver())
+                        .slash(entity.getIdTruck())
                         .withSelfRel();
                 entity.add(selfLink);
             }
@@ -107,7 +106,7 @@ public class TruckController implements GenericOperationsController<Truck> {
             Truck entity = service.findById(id);
             logger.info(String.format("Registro recuperado: %s", entity.toString()));
 
-            Link link = linkTo(DriverController.class).slash(entity.getIdDriver()).withSelfRel();
+            Link link = linkTo(DriverController.class).slash(entity.getIdTruck()).withSelfRel();
             return new Resource<>(entity, link);
         } catch (Exception e) {
             logger.error(String.format("Erro ao executar o método GET.\nMensagem: %s", e.getMessage()));

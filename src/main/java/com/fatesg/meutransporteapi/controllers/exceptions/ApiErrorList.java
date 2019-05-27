@@ -1,11 +1,15 @@
 package com.fatesg.meutransporteapi.controllers.exceptions;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
 import java.util.List;
 
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter @Setter
 public class ApiErrorList extends ApiError {
 
@@ -13,8 +17,4 @@ public class ApiErrorList extends ApiError {
 
     private List<String> erros;
 
-    public ApiErrorList(int code, String msg, Date date, List<String> erros) {
-        super(code, msg, date);
-        this.erros = erros;
-    }
 }

@@ -1,9 +1,6 @@
 package com.fatesg.meutransporteapi.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.hateoas.ResourceSupport;
 
 import javax.persistence.*;
@@ -17,6 +14,7 @@ import java.util.Date;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Setter @Getter
 @Entity(name = "tb_truck")
 @SequenceGenerator(name = "truck_seq", sequenceName = "truck_seq", initialValue = 1, allocationSize = 1)
 public class Truck extends ResourceSupport implements Serializable {

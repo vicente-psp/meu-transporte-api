@@ -19,6 +19,7 @@ import java.util.Date;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter @Setter
 @Entity(name = "tb_driver")
 @SequenceGenerator(name = "driver_seq", sequenceName = "driver_seq", initialValue = 1, allocationSize = 1)
 public class Driver extends ResourceSupport implements Serializable {
