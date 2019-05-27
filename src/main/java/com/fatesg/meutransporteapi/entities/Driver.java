@@ -1,7 +1,7 @@
 package com.fatesg.meutransporteapi.entities;
 
-import com.fatesg.meutransporteapi.entities.utils.CnhCategory;
-import com.fatesg.meutransporteapi.entities.utils.Gender;
+import com.fatesg.meutransporteapi.utils.enums.CnhCategory;
+import com.fatesg.meutransporteapi.utils.enums.Gender;
 import lombok.*;
 import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.hateoas.ResourceSupport;
