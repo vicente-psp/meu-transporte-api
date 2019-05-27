@@ -5,16 +5,16 @@ import org.springframework.hateoas.ResourceSupport;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
-
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Setter @Getter
+@Getter @Setter
 @Entity(name = "tb_truck")
 @SequenceGenerator(name = "truck_seq", sequenceName = "truck_seq", initialValue = 1, allocationSize = 1)
 public class Truck extends ResourceSupport implements Serializable {
@@ -36,9 +36,18 @@ public class Truck extends ResourceSupport implements Serializable {
     @Column(length = 75, nullable = false)
     private String manufacturer;
 
+    @NotNull(message = "Data é obrigatório")
     @Column(name = "year_manufacturing", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date yearManufacturing;
+
+    @Column(name = "initial_date", updatable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date initialDate;
+
+    @Column(name = "final_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date finalDate;
 
     @NotBlank(message = "Placa é obrigatório")
     @Size(min = 6, message = "placa deve ter no mínimo 6 caracteres")
