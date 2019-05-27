@@ -119,7 +119,7 @@ public class DriverController implements GenericOperationsController<Driver> {
     }
 
     @Override
-    @PutMapping(consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    @PatchMapping(consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void patch(Driver entity) {
         try {
