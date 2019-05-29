@@ -54,8 +54,4 @@ public class Truck extends ResourceSupport implements Serializable {
     @Column(length = 75, nullable = false)
     private String board;
 
-    @OneToOne(mappedBy = "driver")
-    private Driver driver;
-
-
 }
