@@ -4,7 +4,6 @@ import com.fatesg.meutransporteapi.utils.enums.CnhCategory;
 import com.fatesg.meutransporteapi.utils.enums.Gender;
 import lombok.*;
 import org.hibernate.validator.constraints.br.CPF;
-import org.springframework.hateoas.ResourceSupport;
 
 import javax.persistence.*;
 import javax.persistence.SequenceGenerator;
@@ -22,7 +21,7 @@ import java.util.Date;
 @Getter @Setter
 @Entity(name = "tb_driver")
 @SequenceGenerator(name = "driver_seq", sequenceName = "driver_seq", initialValue = 1, allocationSize = 1)
-public class Driver extends ResourceSupport implements Serializable {
+public class Driver extends People implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -59,17 +58,5 @@ public class Driver extends ResourceSupport implements Serializable {
     @Column(name = "validity_of_cnh", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date validityOfCnh;
-
-    @Column(name = "initial_date", updatable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date initialDate;
-
-    @Column(name = "final_date")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date finalDate;
-
-    @Column(name = "date_of_birth", nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Date dateOfBirth;
 
 }

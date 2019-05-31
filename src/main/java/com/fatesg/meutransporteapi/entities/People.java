@@ -1,13 +1,15 @@
 package com.fatesg.meutransporteapi.entities;
 
 
-public class City {
+import java.util.List;
+
+public class People {
  
 	private long id;
 	 
 	private String name;
 	 
-	private Enum state;
-	 
+	private List<Contact> contacts;
+
 }
  

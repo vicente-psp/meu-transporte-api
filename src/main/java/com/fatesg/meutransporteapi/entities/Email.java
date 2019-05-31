@@ -1,13 +1,13 @@
 package com.fatesg.meutransporteapi.entities;
 
 
-public class City {
+public class Email {
  
 	private long id;
 	 
-	private String name;
+	private String description;
 	 
-	private Enum state;
+	private Contact idContact;
 	 
 }
  
