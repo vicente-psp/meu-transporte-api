@@ -2,8 +2,10 @@ package com.fatesg.meutransporteapi.entities;
 
 
 import lombok.*;
+import org.springframework.hateoas.ResourceSupport;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Data
 @Builder
@@ -13,7 +15,9 @@ import javax.persistence.*;
 @Setter
 @Entity(name = "tb_order")
 @SequenceGenerator(name = "order_seq", sequenceName = "order_seq", initialValue = 1, allocationSize = 1)
-public class Order {
+public class Order extends ResourceSupport implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "order_seq")
@@ -25,7 +29,7 @@ public class Order {
 
 
 	@Column(length = 75, nullable = false)
-	private People idPeople;
+	private Client idClient;
 
 	@ManyToOne
 	@Column(length = 75, nullable = false)
