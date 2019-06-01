@@ -2,10 +2,12 @@ package com.fatesg.meutransporteapi.entities;
 
 import lombok.*;
 import org.hibernate.validator.constraints.br.CPF;
+import org.springframework.hateoas.ResourceSupport;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.util.List;
 
 @Data
@@ -16,7 +18,9 @@ import java.util.List;
 @Setter
 @Entity(name = "tb_client")
 @SequenceGenerator(name = "client_seq", sequenceName = "client_seq", initialValue = 1, allocationSize = 1)
-public class Client {
+public class Client extends ResourceSupport implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "client_seq")
@@ -36,11 +40,8 @@ public class Client {
 	@Size(min = 3, message = "Razão Social deve ter no mínimo 3 caracteres")
 	@Column(length = 75, nullable = false)
 	private String socialName;
-	 
-	private List<Order> orders;
 
-	@OneToMany
-	private Order idOrder;
-	 
+	@OneToMany(mappedBy = "idClient")
+	private List<Order> orders;
 }
  
