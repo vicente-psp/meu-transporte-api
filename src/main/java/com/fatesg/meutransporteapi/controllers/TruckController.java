@@ -82,12 +82,12 @@ public class TruckController implements GenericOperationsController<Truck> {
             logger.info(String.format("Registro(s) recuperados(s): %s", entities.toString()));
 
             for (final Truck entity : entities) {
-                Link selfLink = linkTo(DriverController.class)
+                Link selfLink = linkTo(TruckController.class)
                         .slash(entity.getIdTruck())
                         .withSelfRel();
                 entity.add(selfLink);
             }
-            Link link = linkTo(DriverController.class).withSelfRel();
+            Link link = linkTo(TruckController.class).withSelfRel();
             Resources<Truck> resources = new Resources<>(entities, link);
             return resources;
         } catch (Exception e) {
@@ -106,7 +106,7 @@ public class TruckController implements GenericOperationsController<Truck> {
             Truck entity = service.findById(id);
             logger.info(String.format("Registro recuperado: %s", entity.toString()));
 
-            Link link = linkTo(DriverController.class).slash(entity.getIdTruck()).withSelfRel();
+            Link link = linkTo(TruckController.class).slash(entity.getIdTruck()).withSelfRel();
             return new Resource<>(entity, link);
         } catch (Exception e) {
             logger.error(String.format("Erro ao executar o método GET.\nMensagem: %s", e.getMessage()));

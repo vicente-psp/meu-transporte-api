@@ -5,17 +5,18 @@ import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.hateoas.ResourceSupport;
 
 import javax.persistence.*;
+import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
+@Getter @Setter
 @Entity(name = "tb_client")
 @SequenceGenerator(name = "client_seq", sequenceName = "client_seq", initialValue = 1, allocationSize = 1)
 public class Client extends ResourceSupport implements Serializable {
@@ -25,7 +26,7 @@ public class Client extends ResourceSupport implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "client_seq")
 	@Column(name = "id")
-	private long id ;
+	private Long idClient;
 
 	@NotBlank(message = "Nome é obrigatório")
 	@Size(min = 3, message = "Nome deve ter no mínimo 3 caracteres")
@@ -43,5 +44,13 @@ public class Client extends ResourceSupport implements Serializable {
 
 	@OneToMany(mappedBy = "idClient")
 	private List<Order> orders;
+
+	@Column(name = "initial_date", updatable = false)
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date initialDate;
+
+	@Column(name = "final_date")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date finalDate;
 }
  

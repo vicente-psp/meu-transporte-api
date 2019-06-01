@@ -5,7 +5,9 @@ import lombok.*;
 import org.springframework.hateoas.ResourceSupport;
 
 import javax.persistence.*;
+import javax.persistence.SequenceGenerator;
 import java.io.Serializable;
+import java.util.Date;
 
 @Data
 @Builder
@@ -22,7 +24,7 @@ public class Order extends ResourceSupport implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "order_seq")
 	@Column(name = "id")
-	private long id;
+	private Long idOrder;
 
 	@Column(length = 75, nullable = false)
 	private double value;
@@ -38,5 +40,13 @@ public class Order extends ResourceSupport implements Serializable {
 	@OneToMany
 	@Column(length = 75, nullable = false)
 	private OrderDetails orderDetails;
+
+	@Column(name = "initial_date", updatable = false)
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date initialDate;
+
+	@Column(name = "final_date")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date finalDate;
 }
  

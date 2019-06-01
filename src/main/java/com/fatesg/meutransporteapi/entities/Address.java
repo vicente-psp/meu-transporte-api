@@ -3,7 +3,7 @@ package com.fatesg.meutransporteapi.entities;
 
 public class Address {
  
-	private long id;
+	private Long idAddress;
 	 
 	private String cep;
 	 
@@ -14,8 +14,6 @@ public class Address {
 	private String lat;
 	 
 	private String longitude;
-	 
-	private Contact idContact;
 	 
 }
  

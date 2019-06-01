@@ -60,4 +60,11 @@ public class Driver extends ResourceSupport implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date validityOfCnh;
 
+    @Column(name = "initial_date", updatable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date initialDate;
+
+    @Column(name = "final_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date finalDate;
 }
