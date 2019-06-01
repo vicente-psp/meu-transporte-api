@@ -21,7 +21,7 @@ import java.util.Date;
 @Getter @Setter
 @Entity(name = "tb_driver")
 @SequenceGenerator(name = "driver_seq", sequenceName = "driver_seq", initialValue = 1, allocationSize = 1)
-public class Driver extends People implements Serializable {
+public class Driver implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
