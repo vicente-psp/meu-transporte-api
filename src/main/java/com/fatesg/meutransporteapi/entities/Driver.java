@@ -28,7 +28,7 @@ public class Driver extends ResourceSupport implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "driver_seq")
-    @Column(name = "id")
+    @Column(name = "idDriver")
     private Long idDriver;
 
     @NotBlank(message = "Nome é obrigatório")

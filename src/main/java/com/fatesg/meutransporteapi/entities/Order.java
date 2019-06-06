@@ -23,7 +23,7 @@ public class Order extends ResourceSupport implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "order_seq")
-	@Column(name = "id")
+	@Column(name = "idOrder")
 	private Long idOrder;
 
 	@Column(length = 75, nullable = false)

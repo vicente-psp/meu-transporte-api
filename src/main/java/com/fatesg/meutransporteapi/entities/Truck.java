@@ -23,7 +23,7 @@ public class Truck extends ResourceSupport implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "truck_seq")
-    @Column(name = "id")
+    @Column(name = "idTruck")
     private Long idTruck;
 
     @NotBlank(message = "Modelo é obrigatório")

@@ -24,7 +24,7 @@ public class Route extends ResourceSupport implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "route_seq")
-	@Column(name = "id")
+	@Column(name = "idRoute")
 	private Long idRoute;
 
 	@ManyToOne

@@ -1,11 +1,10 @@
 package com.fatesg.meutransporteapi.entities;
 
 import lombok.*;
-import org.hibernate.validator.constraints.br.CPF;
+import org.hibernate.validator.constraints.br.CNPJ;
 import org.springframework.hateoas.ResourceSupport;
 
 import javax.persistence.*;
-import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
@@ -25,7 +24,7 @@ public class Client extends ResourceSupport implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "client_seq")
-	@Column(name = "id")
+	@Column(name = "idClient")
 	private Long idClient;
 
 	@NotBlank(message = "Nome é obrigatório")
@@ -33,7 +32,7 @@ public class Client extends ResourceSupport implements Serializable {
 	@Column(length = 75, nullable = false)
 	private String name;
 
-	@CPF(message = "CNPJ inválido")
+	@CNPJ(message = "CNPJ inválido")
 	@Column(length = 13, nullable = false)
 	private String cnpj;
 
@@ -42,7 +41,7 @@ public class Client extends ResourceSupport implements Serializable {
 	@Column(length = 75, nullable = false)
 	private String socialName;
 
-	@OneToMany(mappedBy = "idClient")
+	@OneToMany(mappedBy = "idOrder")
 	private List<Order> orders;
 
 	@Column(name = "initial_date", updatable = false)

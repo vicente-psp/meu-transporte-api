@@ -22,7 +22,7 @@ public class Product  extends ResourceSupport implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_seq")
-	@Column(name = "id")
+	@Column(name = "idProduct")
 	private Long idProduct;
 
 	@NotBlank(message = "Descrição é obrigatório")
@@ -35,10 +35,10 @@ public class Product  extends ResourceSupport implements Serializable {
 	@NumberFormat
 	private Double value;
 
-	@OneToMany
+	@OneToMany(mappedBy = "idOrder")
 	private Order idOrder;
 
-	@OneToMany
+	@OneToMany(mappedBy = "idOrderDetails")
 	private OrderDetails orderDetails;
 
 	@Column(name = "initial_date", updatable = false)
