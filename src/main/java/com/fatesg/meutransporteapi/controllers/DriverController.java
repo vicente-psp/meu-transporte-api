@@ -31,7 +31,7 @@ public class DriverController implements GenericOperationsController<Driver> {
 
 
     @Override
-    @PostMapping(consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE },
+    @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE },
             produces = {MediaType.APPLICATION_JSON_VALUE,
                     MediaType.APPLICATION_XML_VALUE,
                     MediaTypes.HAL_JSON_VALUE})
@@ -50,9 +50,9 @@ public class DriverController implements GenericOperationsController<Driver> {
     }
 
     @Override
-    @PutMapping(consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    @PutMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void put(Driver entity) {
+    public void put(@RequestBody @Valid Driver entity) {
         try {
             service.save(entity);
             logger.info(String.format("Registro atualizado: %s", entity.toString()));
@@ -62,9 +62,9 @@ public class DriverController implements GenericOperationsController<Driver> {
     }
 
     @Override
-    @DeleteMapping(consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+    @DeleteMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(Driver entity) {
+    public void delete(@RequestBody Driver entity) {
         try {
             service.delete(entity);
             logger.info(String.format("Registro(s) deletado(s): %s",entity.toString()));
@@ -74,7 +74,7 @@ public class DriverController implements GenericOperationsController<Driver> {
     }
 
     @Override
-    @GetMapping(produces = { MediaType.APPLICATION_JSON_VALUE,
+    @GetMapping(produces = {MediaType.APPLICATION_JSON_VALUE,
             MediaType.APPLICATION_XML_VALUE,
             MediaTypes.HAL_JSON_VALUE})
     @ResponseStatus(HttpStatus.OK)
@@ -119,7 +119,7 @@ public class DriverController implements GenericOperationsController<Driver> {
     }
 
     @Override
-    @PatchMapping(consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    @PatchMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void patch(Driver entity) {
         try {
