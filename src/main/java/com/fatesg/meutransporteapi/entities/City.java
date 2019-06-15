@@ -1,6 +1,6 @@
 package com.fatesg.meutransporteapi.entities;
 
-import com.fatesg.meutransporteapi.utils.enums.Estados;
+import com.fatesg.meutransporteapi.utils.enums.State;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,6 +23,6 @@ public class City {
     
     private String description;
     
-    private Estados estado;
+    private State state;
     
 }
