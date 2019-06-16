@@ -41,7 +41,7 @@ public class DriverController implements GenericOperationsController<Driver> {
             service.save(entity);
             logger.info("Registro inserido");
 
-            Link link = linkTo(DriverController.class).slash(entity.getIdDriver()).withSelfRel();
+            Link link = linkTo(DriverController.class).slash(entity.getIdUser()).withSelfRel();
             return new Resource<>(entity, link);
         } catch (Exception e) {
             logger.error(String.format("Erro ao executar o método POST.\nMensagem: %s", e.getMessage()));
@@ -86,7 +86,7 @@ public class DriverController implements GenericOperationsController<Driver> {
 
             for (final Driver entity : entities) {
                 Link selfLink = linkTo(DriverController.class)
-                        .slash(entity.getIdDriver())
+                        .slash(entity.getIdUser())
                         .withSelfRel();
                 entity.add(selfLink);
             }
@@ -110,7 +110,7 @@ public class DriverController implements GenericOperationsController<Driver> {
             Driver entity = service.findById(id);
             logger.info(String.format("Registro recuperado: %s", entity.toString()));
 
-            Link link = linkTo(DriverController.class).slash(entity.getIdDriver()).withSelfRel();
+            Link link = linkTo(DriverController.class).slash(entity.getIdUser()).withSelfRel();
             return new Resource<>(entity, link);
         } catch (Exception e) {
             logger.error(String.format("Erro ao executar o método GET.\nMensagem: %s", e.getMessage()));
@@ -121,7 +121,7 @@ public class DriverController implements GenericOperationsController<Driver> {
     @Override
     @PatchMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void patch(Driver entity) {
+    public void patch(@RequestBody Driver entity) {
         try {
             service.save(entity);
             logger.info(String.format("Registro atualizado: %s", entity.toString()));
