@@ -4,31 +4,22 @@ import com.fatesg.meutransporteapi.utils.enums.CnhCategory;
 import com.fatesg.meutransporteapi.utils.enums.Gender;
 import lombok.*;
 import org.hibernate.validator.constraints.br.CPF;
-import org.springframework.hateoas.ResourceSupport;
 
 import javax.persistence.*;
 import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.io.Serializable;
 import java.util.Date;
 
 
 @Data
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@PrimaryKeyJoinColumn(name="id", referencedColumnName="id")
 @Entity(name = "tb_driver")
 @SequenceGenerator(name = "driver_seq", sequenceName = "driver_seq", initialValue = 1, allocationSize = 1)
-public class Driver extends ResourceSupport implements Serializable {
-
-    private static final long serialVersionUID = 1L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "driver_seq")
-    @Column(name = "id")
-    private Long idDriver;
+public class Driver extends User {
 
     @NotBlank(message = "Nome é obrigatório")
     @Size(min = 3, message = "Nome deve ter no mínimo 3 caracteres")
@@ -72,3 +63,4 @@ public class Driver extends ResourceSupport implements Serializable {
     private Date dateOfBirth;
 
 }
+
