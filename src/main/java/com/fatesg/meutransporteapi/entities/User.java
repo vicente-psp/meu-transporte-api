@@ -1,13 +1,13 @@
 package com.fatesg.meutransporteapi.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fatesg.meutransporteapi.utils.enums.Role;
 import lombok.*;
 import org.springframework.hateoas.ResourceSupport;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 
@@ -15,6 +15,7 @@ import java.io.Serializable;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Inheritance(strategy = InheritanceType.JOINED)
 @Entity(name = "tb_user")
 @SequenceGenerator(name = "user_seq", sequenceName = "user_seq", initialValue = 1, allocationSize = 1)
 public class User extends ResourceSupport implements Serializable {
@@ -28,17 +29,16 @@ public class User extends ResourceSupport implements Serializable {
 
     @NotBlank(message = "Usuário é obrigatório")
     @Size(min = 5, message = "Usuário deve ter no mínimo 5 caracteres")
-    @Column(length = 75, nullable = false)
+    @Column(length = 75, nullable = false, unique = true)
     private String description;
 
-    @Getter(onMethod = @__({@JsonIgnore}))
-    @Setter(onMethod = @__({@JsonProperty}))
     @NotBlank(message = "Senha é obrigatório")
     @Size(min = 4, message = "Senha deve ter no mínimo 4 caracteres")
     @Column(length = 50, nullable = false)
     private String password;
 
     @Enumerated(EnumType.STRING)
+    @NotNull(message = "Perfil é obrigatório")
     @Column(nullable = false)
     private Role role;
 
