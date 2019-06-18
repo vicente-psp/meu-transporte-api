@@ -29,8 +29,8 @@ public class User extends ResourceSupport implements Serializable {
 
     @NotBlank(message = "Usuário é obrigatório")
     @Size(min = 5, message = "Usuário deve ter no mínimo 5 caracteres")
-    @Column(length = 75, nullable = false, unique = true)
-    private String description;
+    @Column(name = "user_name", length = 75, nullable = false, unique = true)
+    private String userName;
 
     @NotBlank(message = "Senha é obrigatório")
     @Size(min = 4, message = "Senha deve ter no mínimo 4 caracteres")
