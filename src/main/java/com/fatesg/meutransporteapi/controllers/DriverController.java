@@ -36,6 +36,7 @@ public class DriverController implements GenericOperationsController<Driver> {
                     MediaType.APPLICATION_XML_VALUE,
                     MediaTypes.HAL_JSON_VALUE})
     @ResponseStatus(HttpStatus.CREATED)
+    @CrossOrigin
     public Resource<Driver> post(@RequestBody @Valid Driver entity) {
         try {
             service.save(entity);
@@ -52,6 +53,7 @@ public class DriverController implements GenericOperationsController<Driver> {
     @Override
     @PutMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @CrossOrigin
     public void put(@RequestBody @Valid Driver entity) {
         try {
             service.save(entity);
@@ -78,6 +80,7 @@ public class DriverController implements GenericOperationsController<Driver> {
             MediaType.APPLICATION_XML_VALUE,
             MediaTypes.HAL_JSON_VALUE})
     @ResponseStatus(HttpStatus.OK)
+    @CrossOrigin
     public Resources<Driver> get() {
         try {
             List<Driver> entities = service.findAll();
