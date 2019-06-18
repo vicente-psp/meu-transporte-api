@@ -34,6 +34,9 @@ public class Driver extends User {
     @Column(length = 11, nullable = false)
     private String cpf;
 
+    @Column(length = 20)
+    private String phone;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "cnh_category", nullable = false)
     private CnhCategory cnhCategory;
