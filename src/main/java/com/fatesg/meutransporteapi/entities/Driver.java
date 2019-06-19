@@ -2,15 +2,11 @@ package com.fatesg.meutransporteapi.entities;
 
 import com.fatesg.meutransporteapi.utils.enums.CnhCategory;
 import com.fatesg.meutransporteapi.utils.enums.Gender;
-import lombok.*;
 import org.hibernate.validator.constraints.br.CPF;
-
-import javax.persistence.*;
-import javax.persistence.SequenceGenerator;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.util.Date;
+import javax.validation.constraints.*;
+import javax.persistence.*;
+import lombok.*;
 
 
 @Data
@@ -22,18 +18,21 @@ import java.util.Date;
 public class Driver extends User {
 
     @NotBlank(message = "Nome é obrigatório")
-    @Size(min = 3, message = "Nome deve ter no mínimo 3 caracteres")
+    @Size(min = 3, message = "Nome deve ter de 3 a 75 caracteres")
     @Column(length = 75, nullable = false)
     private String name;
 
     @NotNull(message = "CNH é obrigatório")
+    @Size(max = 11, message = "CNH deve ter no máximo 11 caracteres")
     @Column(length = 11, nullable = false)
     private String cnh;
 
     @CPF(message = "CPF inválido")
+    @Size(max = 11, message = "CPF deve ter no máximo 11 caracteres")
     @Column(length = 11, nullable = false)
     private String cpf;
 
+    @Size(max = 20, message = "Nome deve ter no máximo 20 caracteres")
     @Column(length = 20)
     private String phone;
 
