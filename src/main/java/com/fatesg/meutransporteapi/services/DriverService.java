@@ -7,11 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class DriverService implements GenericOperations<Driver> {
@@ -19,7 +15,6 @@ public class DriverService implements GenericOperations<Driver> {
     Logger logger = LoggerFactory.getLogger(DriverService.class);
 
     @Autowired private DriverRepository repository;
-
 
     @Override
     public List<Driver> save(List<Driver> entities) {
