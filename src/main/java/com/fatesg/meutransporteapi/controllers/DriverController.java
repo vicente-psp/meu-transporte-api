@@ -1,6 +1,5 @@
 package com.fatesg.meutransporteapi.controllers;
 
-
 import com.fatesg.meutransporteapi.entities.Driver;
 import com.fatesg.meutransporteapi.interfaces.GenericOperationsController;
 import com.fatesg.meutransporteapi.services.DriverService;
@@ -66,6 +65,7 @@ public class DriverController implements GenericOperationsController<Driver> {
     @Override
     @DeleteMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @CrossOrigin
     public void delete(@RequestBody Driver entity) {
         try {
             service.delete(entity);
@@ -108,6 +108,7 @@ public class DriverController implements GenericOperationsController<Driver> {
             MediaType.APPLICATION_XML_VALUE,
             MediaTypes.HAL_JSON_VALUE})
     @ResponseStatus(HttpStatus.OK)
+    @CrossOrigin
     public Resource<Driver> get(@PathVariable Long id) {
         try {
             Driver entity = service.findById(id);
@@ -124,6 +125,7 @@ public class DriverController implements GenericOperationsController<Driver> {
     @Override
     @PatchMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @CrossOrigin
     public void patch(@RequestBody Driver entity) {
         try {
             service.save(entity);
