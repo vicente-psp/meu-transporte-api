@@ -1,15 +1,17 @@
 package com.fatesg.meutransporteapi.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fatesg.meutransporteapi.utils.enums.Role;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.hateoas.ResourceSupport;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+
 
 @Data
 @Builder
