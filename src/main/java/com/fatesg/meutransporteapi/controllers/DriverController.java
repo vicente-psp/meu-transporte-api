@@ -1,7 +1,9 @@
 package com.fatesg.meutransporteapi.controllers;
 
 import com.fatesg.meutransporteapi.entities.Driver;
+import com.fatesg.meutransporteapi.entities.User;
 import com.fatesg.meutransporteapi.interfaces.GenericOperationsController;
+import com.fatesg.meutransporteapi.security.SecurityConfig;
 import com.fatesg.meutransporteapi.services.DriverService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +14,11 @@ import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
@@ -25,8 +32,30 @@ public class DriverController implements GenericOperationsController<Driver> {
 
     @Autowired private DriverService service;
 
+    @Autowired private AuthenticationManager authenticationManager;
+
     Logger logger = LoggerFactory.getLogger(DriverController.class);
 
+
+    @PostMapping(value = "/login", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE },
+            produces = {MediaType.APPLICATION_JSON_VALUE,
+                    MediaType.APPLICATION_XML_VALUE,
+                    MediaTypes.HAL_JSON_VALUE})
+    @ResponseStatus(HttpStatus.CREATED)
+    @CrossOrigin
+    public ResponseEntity<User> login(@RequestBody @Valid User entity) {
+        try {
+            UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(entity.getUserName(), entity.getPassword());
+            Authentication authentication = authenticationManager.authenticate(token);
+
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+
+            return null;
+        } catch (Exception e) {
+            logger.error(String.format("Erro ao executar o método login.\nMensagem: %s", e.getMessage()));
+            return null;
+        }
+    }
 
     @Override
     @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE },
