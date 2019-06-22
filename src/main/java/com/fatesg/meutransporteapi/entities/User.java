@@ -11,6 +11,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.Date;
 
 
 @Data
@@ -43,5 +44,13 @@ public class User extends ResourceSupport implements Serializable {
     @NotNull(message = "Perfil é obrigatório")
     @Column(nullable = false)
     private Role role;
+
+    @Column(name = "initial_date", updatable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date initialDate;
+
+    @Column(name = "final_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date finalDate;
 
 }

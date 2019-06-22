@@ -31,13 +31,5 @@ public class Client extends User {
     @Size(max = 20, message = "Nome deve ter no máximo 20 caracteres")
     @Column(length = 20)
     private String phone;
-
-    @Column(name = "initial_date", updatable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date initialDate;
-
-    @Column(name = "final_date")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date finalDate;
     
 }

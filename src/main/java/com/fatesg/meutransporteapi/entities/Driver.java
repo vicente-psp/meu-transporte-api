@@ -52,14 +52,6 @@ public class Driver extends User {
     @Temporal(TemporalType.DATE)
     private Date validityOfCnh;
 
-    @Column(name = "initial_date", updatable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date initialDate;
-
-    @Column(name = "final_date")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date finalDate;
-
     @Column(name = "date_of_birth", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date dateOfBirth;
