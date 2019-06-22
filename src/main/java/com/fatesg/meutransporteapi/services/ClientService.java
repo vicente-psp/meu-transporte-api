@@ -99,12 +99,14 @@ public class ClientService implements GenericOperations<Client> {
     }
 
     @Override
-    public void delete(Client entity) {
+    public void delete(Long id) {
         try {
             logger.debug("\tMétodo delete executado.");
             logger.debug("\tMétodo delete invocado");
-            logger.debug(String.format("\tValor recebido: %s", entity.toString()));
+            logger.debug(String.format("\tValor recebido: %s", id.toString()));
 
+            Client entity = new Client();
+            entity.setIdUser(id);
             repository.delete(entity);
         } catch (Exception e) {
             logger.error(String.format("Error ao persistir registro. \nMensagem:%s", e.getMessage()));
@@ -142,11 +144,13 @@ public class ClientService implements GenericOperations<Client> {
     }
 
     @Override
-    public void delete(List<Client> entities) {
+    public void delete(List<Long> ids) {
         try {
             logger.debug("\tMétodo delete executado.");
             logger.debug("\tMétodo delete invocado");
-            for (Client entity: entities) {
+            for (Long id: ids) {
+                Client entity = new Client();
+                entity.setIdUser(id);
                 logger.debug(String.format("\tValor recebido: %s", entity.toString()));
                 repository.delete(entity);
             }

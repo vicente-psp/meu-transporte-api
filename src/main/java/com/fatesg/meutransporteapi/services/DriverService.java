@@ -96,12 +96,14 @@ public class DriverService implements GenericOperations<Driver> {
     }
 
     @Override
-    public void delete(Driver entity) {
+    public void delete(Long id) {
         try {
             logger.debug("\tMétodo delete executado.");
             logger.debug("\tMétodo delete invocado");
-            logger.debug(String.format("\tValor recebido: %s", entity.toString()));
+            logger.debug(String.format("\tValor recebido: %s", id.toString()));
 
+            Driver entity = new Driver();
+            entity.setIdUser(id);
             repository.delete(entity);
         } catch (Exception e) {
             logger.error(String.format("Error ao persistir registro. \nMensagem:%s", e.getMessage()));
@@ -139,11 +141,13 @@ public class DriverService implements GenericOperations<Driver> {
     }
 
     @Override
-    public void delete(List<Driver> entities) {
+    public void delete(List<Long> ids) {
         try {
             logger.debug("\tMétodo delete executado.");
             logger.debug("\tMétodo delete invocado");
-            for (Driver entity: entities) {
+            for (Long id: ids) {
+                Driver entity = new Driver();
+                entity.setIdUser(id);
                 logger.debug(String.format("\tValor recebido: %s", entity.toString()));
                 repository.delete(entity);
             }

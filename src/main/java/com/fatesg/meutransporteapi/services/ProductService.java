@@ -99,12 +99,14 @@ public class ProductService implements GenericOperations<Product> {
     }
 
     @Override
-    public void delete(Product entity) {
+    public void delete(Long id) {
         try {
             logger.debug("\tMétodo delete executado.");
             logger.debug("\tMétodo delete invocado");
-            logger.debug(String.format("\tValor recebido: %s", entity.toString()));
+            logger.debug(String.format("\tValor recebido: %s", id.toString()));
 
+            Product entity = new Product();
+            entity.setIdProduct(id);
             repository.delete(entity);
         } catch (Exception e) {
             logger.error(String.format("Error ao persistir registro. \nMensagem:%s", e.getMessage()));
@@ -142,11 +144,13 @@ public class ProductService implements GenericOperations<Product> {
     }
 
     @Override
-    public void delete(List<Product> entities) {
+    public void delete(List<Long> ids) {
         try {
             logger.debug("\tMétodo delete executado.");
             logger.debug("\tMétodo delete invocado");
-            for (Product entity: entities) {
+            for (Long id: ids) {
+                Product entity = new Product();
+                entity.setIdProduct(id);
                 logger.debug(String.format("\tValor recebido: %s", entity.toString()));
                 repository.delete(entity);
             }
