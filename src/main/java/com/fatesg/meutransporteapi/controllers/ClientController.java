@@ -61,13 +61,13 @@ public class ClientController implements GenericOperationsController<Client> {
     }
 
     @Override
-    @DeleteMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+    @DeleteMapping(value = "/{id}", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @CrossOrigin
-    public void delete(@RequestBody Client entity) {
+    public void delete(@PathVariable Long id) {
         try {
-            service.delete(entity);
-            logger.info(String.format("Registro(s) deletado(s): %s",entity.toString()));
+            service.delete(id);
+            logger.info(String.format("Registro(s) deletado(s): %s",id.toString()));
         } catch (Exception e) {
             logger.error(String.format("Erro ao executar o método DELETE.\nMensagem: %s", e.getMessage()));
         }
