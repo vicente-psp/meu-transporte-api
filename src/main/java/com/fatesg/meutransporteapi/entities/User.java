@@ -37,7 +37,7 @@ public class User extends ResourceSupport implements Serializable {
 
     @NotBlank(message = "Senha é obrigatório")
     @Size(min = 4, message = "Senha deve ter no mínimo 4 caracteres")
-    @Column(length = 50, nullable = false)
+    @Column(length = 100, nullable = false)
     private String password;
 
     @Enumerated(EnumType.STRING)
