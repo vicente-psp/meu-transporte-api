@@ -2,6 +2,7 @@ package com.fatesg.meutransporteapi.controllers;
 
 import com.fatesg.meutransporteapi.entities.Driver;
 import com.fatesg.meutransporteapi.entities.User;
+import com.fatesg.meutransporteapi.exceptions.NotFoundException;
 import com.fatesg.meutransporteapi.interfaces.GenericOperationsController;
 import com.fatesg.meutransporteapi.security.JwtManager;
 import com.fatesg.meutransporteapi.security.SecurityConfig;
@@ -17,6 +18,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -65,6 +67,9 @@ public class DriverController implements GenericOperationsController<Driver> {
             String jwt = jwtManager.createToken(userName, roles);
 
             return ResponseEntity.ok(jwt);
+        } catch (BadCredentialsException e) {
+            logger.error(String.format("Erro BadCredentialsException ao executar o método login.\nMensagem: %s", e.getMessage()));
+            throw new BadCredentialsException("Senha e/ou usuário incorreto(s)");
         } catch (Exception e) {
             logger.error(String.format("Erro ao executar o método login.\nMensagem: %s", e.getMessage()));
             return null;
