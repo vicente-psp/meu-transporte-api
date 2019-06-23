@@ -25,18 +25,22 @@ public class UserService implements UserDetailsService {
     @Autowired private UserRepository repository;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<User> result = repository.findByEmail(username);
+    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
+        logger.debug("\tMétodo loadUserByUsername invocado");
+        Optional<User> result = repository.findByUserName(userName);
 
-        if (result.isPresent()) {
-            throw new UsernameNotFoundException("Doesn't exist user with email: " + username);
+        if (!result.isPresent()) {
+            logger.error("\tOcorreu um erro para o user: " + userName);
+            throw new UsernameNotFoundException("Doesn't exist user with name: " + userName);
         }
 
         User user = result.get();
+        logger.debug("\tValor recuperado: " + userName);
 
         List<GrantedAuthority> authorities = Arrays.asList(new SimpleGrantedAuthority(user.getRole().name()));
 
-        org.springframework.security.core.userdetails.User userSpring = new org.springframework.security.core.userdetails.User(user.getUserName(), user.getPassword(), authorities);
+        org.springframework.security.core.userdetails.User userSpring =
+                            new org.springframework.security.core.userdetails.User(user.getUserName(), user.getPassword(), authorities);
 
         return userSpring;
     }
