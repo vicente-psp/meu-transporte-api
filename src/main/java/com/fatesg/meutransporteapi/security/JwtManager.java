@@ -1,6 +1,8 @@
 package com.fatesg.meutransporteapi.security;
 
 import com.fatesg.meutransporteapi.constant.SecurityConstants;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.stereotype.Component;
@@ -22,4 +24,14 @@ public class JwtManager {
                 .compact();
         return jwt;
     }
+
+    public Claims parseToken(String token) throws JwtException {
+        Claims claims = Jwts.parser()
+                                .setSigningKey(SecurityConstants.API_KEY.getBytes())
+                                .parseClaimsJws(token)
+                                .getBody();
+
+        return claims;
+    }
+
 }
