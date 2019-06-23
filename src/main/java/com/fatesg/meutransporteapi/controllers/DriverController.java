@@ -3,6 +3,7 @@ package com.fatesg.meutransporteapi.controllers;
 import com.fatesg.meutransporteapi.entities.Driver;
 import com.fatesg.meutransporteapi.entities.User;
 import com.fatesg.meutransporteapi.interfaces.GenericOperationsController;
+import com.fatesg.meutransporteapi.security.JwtManager;
 import com.fatesg.meutransporteapi.security.SecurityConfig;
 import com.fatesg.meutransporteapi.services.DriverService;
 import org.slf4j.Logger;
@@ -22,6 +23,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
@@ -33,6 +35,7 @@ public class DriverController implements GenericOperationsController<Driver> {
     @Autowired private DriverService service;
 
     @Autowired private AuthenticationManager authenticationManager;
+    @Autowired private JwtManager jwtManager;
 
     Logger logger = LoggerFactory.getLogger(DriverController.class);
 
@@ -43,14 +46,25 @@ public class DriverController implements GenericOperationsController<Driver> {
                     MediaTypes.HAL_JSON_VALUE})
     @ResponseStatus(HttpStatus.CREATED)
     @CrossOrigin
-    public ResponseEntity<User> login(@RequestBody @Valid User entity) {
+    public ResponseEntity<String> login(@RequestBody @Valid User entity) {
         try {
             UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(entity.getUserName(), entity.getPassword());
             Authentication authentication = authenticationManager.authenticate(token);
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
-            return null;
+            org.springframework.security.core.userdetails.User userSpring =
+                    (org.springframework.security.core.userdetails.User) authentication.getPrincipal();
+
+            String userName = userSpring.getUsername();
+            List<String> roles = userSpring.getAuthorities()
+                                    .stream()
+                                    .map(authority -> authority.getAuthority())
+                                    .collect(Collectors.toList());
+
+            String jwt = jwtManager.createToken(userName, roles);
+
+            return ResponseEntity.ok(jwt);
         } catch (Exception e) {
             logger.error(String.format("Erro ao executar o método login.\nMensagem: %s", e.getMessage()));
             return null;
