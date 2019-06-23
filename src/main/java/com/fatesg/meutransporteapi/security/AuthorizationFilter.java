@@ -31,7 +31,7 @@ public class AuthorizationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
         String jwt = httpServletRequest.getHeader(HttpHeaders.AUTHORIZATION);
 
-        if (jwt == null || jwt.startsWith(SecurityConstants.JWT_PROVIDER)) {
+        if (jwt == null || !jwt.startsWith(SecurityConstants.JWT_PROVIDER)) {
             ApiError apiError = new ApiError(HttpStatus.UNAUTHORIZED.value(), SecurityConstants.JWT_INVALID_MSG, new Date());
             PrintWriter writer = httpServletResponse.getWriter();
 
