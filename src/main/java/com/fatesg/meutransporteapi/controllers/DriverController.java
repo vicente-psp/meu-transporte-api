@@ -47,7 +47,6 @@ public class DriverController implements GenericOperationsController<Driver> {
                     MediaType.APPLICATION_XML_VALUE,
                     MediaTypes.HAL_JSON_VALUE})
     @ResponseStatus(HttpStatus.CREATED)
-    @CrossOrigin
     public ResponseEntity<String> login(@RequestBody @Valid User entity) {
         try {
             UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(entity.getUserName(), entity.getPassword());
@@ -82,7 +81,6 @@ public class DriverController implements GenericOperationsController<Driver> {
                     MediaType.APPLICATION_XML_VALUE,
                     MediaTypes.HAL_JSON_VALUE})
     @ResponseStatus(HttpStatus.CREATED)
-    @CrossOrigin
     public Resource<Driver> post(@RequestBody @Valid Driver entity) {
         try {
             service.save(entity);
@@ -99,7 +97,6 @@ public class DriverController implements GenericOperationsController<Driver> {
     @Override
     @PutMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @CrossOrigin
     public void put(@RequestBody @Valid Driver entity) {
         try {
             service.save(entity);
@@ -112,7 +109,6 @@ public class DriverController implements GenericOperationsController<Driver> {
     @Override
     @DeleteMapping(value = "/{id}", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @CrossOrigin
     public void delete(@PathVariable Long id) {
         try {
             service.delete(id);
@@ -127,7 +123,6 @@ public class DriverController implements GenericOperationsController<Driver> {
             MediaType.APPLICATION_XML_VALUE,
             MediaTypes.HAL_JSON_VALUE})
     @ResponseStatus(HttpStatus.OK)
-    @CrossOrigin
     public Resources<Driver> get() {
         try {
             List<Driver> entities = service.findAll();
@@ -155,7 +150,6 @@ public class DriverController implements GenericOperationsController<Driver> {
             MediaType.APPLICATION_XML_VALUE,
             MediaTypes.HAL_JSON_VALUE})
     @ResponseStatus(HttpStatus.OK)
-    @CrossOrigin
     public Resource<Driver> get(@PathVariable Long id) {
         try {
             Driver entity = service.findById(id);
@@ -172,7 +166,6 @@ public class DriverController implements GenericOperationsController<Driver> {
     @Override
     @PatchMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @CrossOrigin
     public void patch(@RequestBody Driver entity) {
         try {
             service.save(entity);
